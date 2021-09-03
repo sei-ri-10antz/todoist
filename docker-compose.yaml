@@ -1,0 +1,35 @@
+version: "3.1"
+
+services:
+  redis:
+    image: redis:3.2
+    container_name: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - ./data/redis:/data
+    networks:
+      - sandbox-net
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: sa
+      MYSQL_DATABASE: sandbox
+      MYSQL_USER: develop
+      MYSQL_PASSWORD: develop
+    command:
+      mysqld
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./data/mysql/:/var/www
+    ports:
+      - 3306:3306
+    networks:
+      - sandbox-net
+
+networks:
+  sandbox-net:
+    external: true

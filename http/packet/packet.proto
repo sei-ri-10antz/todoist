@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package packet;
+
+option go_package = "github.com/sei-ri-10antz/todoist/packet;packet";
+
+message SelfLinks {
+	string self = 1;
+}
+
+message TaskResponse {
+	string id = 1;
+	string name = 2;
+	string due_date = 3;
+	string last_updated_at = 4;
+	SelfLinks links = 99;
+}
+
+message TasksResponse {
+	repeated TaskResponse tasks = 1;
+	SelfLinks links = 99;
+}
+
+message CreateTask {
+	string name = 1;
+	string end_date = 2;
+}
